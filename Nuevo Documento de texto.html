@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora Solain</title>
+    <script type="text/javascript">
+        function calcularGanancias() {
+            var principal = parseFloat(document.getElementById("principal").value);
+            var diaInicio = document.getElementById("diaInicio").value;
+            var diaFin = document.getElementById("diaFin").value;
+            var interes = parseFloat(document.getElementById("interes").value);
+            var resultadoSinComision;
+            var resultadoConComision;
+            
+            // Calcular el número de días
+            var fechaInicio = new Date(diaInicio);
+            var fechaFin = new Date(diaFin);
+            var numDias = Math.ceil((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24)) + 1;
+
+            // Calcular las ganancias sin comisión
+            var factorInteres = 1 + (interes / 100);
+            resultadoSinComision = Math.pow(factorInteres, numDias) * principal;
+
+            // Calcular las ganancias con comisión del 6%
+            resultadoConComision = resultadoSinComision * 0.94;
+            
+            // Mostrar los resultados en los elementos de salida con 4 decimales
+            document.getElementById("resultadoSinComision").innerHTML = "Ganancias sin comisión: $" + resultadoSinComision.toFixed(4);
+            document.getElementById("resultadoConComision").innerHTML = "Ganancias menos comisión del 6% de retiro: $" + resultadoConComision.toFixed(4);
+        }
+    </script>
+</head>
+<body>
+    <h1>Calculadora Solain</h1>
+    <label for="principal">Monto de Entrada en Dólares:</label>
+    <input type="number" id="principal" name="principal">
+    <br>
+    <label for="diaInicio">Fecha de Inicio:</label>
+    <input type="date" id="diaInicio" name="diaInicio">
+    <br>
+    <label for="diaFin">Fecha de Final:</label>
+    <input type="date" id="diaFin" name="diaFin">
+    <br>
+    <label for="interes">Tasa de Interés:</label>
+    <select id="interes" name="interes">
+        <option value="2">2%</option>
+        <option value="2.5">2.5%</option>
+        <option value="2.8">2.8%</option>
+        <option value="3">3%</option>
+    </select>
+    <br>
+    <button onclick="calcularGanancias()">Calcular</button>
+    <br>
+    <p id="resultadoSinComision"></p>
+    <p id="resultadoConComision"></p>
+</body>
+</html>
